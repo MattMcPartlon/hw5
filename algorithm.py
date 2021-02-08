@@ -59,12 +59,7 @@ class MazeSearch:
         is_goal = current_position == self.goal_position
         return is_goal or len(self.storage) == 0
 
-    def search(self, maze: Maze) -> bool:
-        """Searches a maze for the goal position,
-        beginning from the mazes starting position
-        """
-        # clear any state information from previous searches
-        # and update state for the maze being solved
+    def reset_state(self, maze):
         self.storage.clear()
         self.storage.update(maze)
         self.parents = {}
@@ -72,6 +67,15 @@ class MazeSearch:
         self.goal_position = maze.goal_position()
         self.start_position = maze.start_position()
         self.discovered_positions = set()
+
+    def search(self, maze: Maze) -> bool:
+        """Searches a maze for the goal position,
+        beginning from the mazes starting position
+        """
+        # clear any state information from previous searches
+        # and update state for the maze being solved
+        self.reset_state(maze)
+        #track the time taken to solve the maze
         self.start_time = time.time()
         # add starting position to storage container and discovered vertices
         # search the maze
@@ -91,20 +95,19 @@ class MazeSearch:
         self.parents[current_position] = None
         while not self.finishedQ(current_position):
             # Get and search from the current position
-            # TODO
+            current_position = self.storage.get_next_position()
             # Search the maze - get the (yet to be discovered) neighbors of
             # the current position
-            # TODO
+            nbrs = self.get_undiscovered_neighbors(maze, current_position)
             # Update the parent pointers and discover the added vertices
-            # TODO
-            pass
+            self.set_parent(current_position,*nbrs)
+            self.discover(*nbrs)
         return current_position == self.goal_position
 
     def get_undiscovered_neighbors(self, maze: Maze, pos: Tuple[int, int]) -> Iterable[Tuple[int, int]]:
         """Returns a list of (undiscovered) open cells neighboring
         the current position, pos
         """
-        i, j = pos
         # TODO
 
     def discover(self, *posns) -> None:
