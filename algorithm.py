@@ -1,7 +1,7 @@
 import time
 from typing import Iterable, Tuple, List
 
-from data_structures import PositionStorage
+from datastructures import PositionStorage
 from utils import RandomMaze as Maze
 
 

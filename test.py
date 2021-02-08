@@ -1,5 +1,5 @@
 from algorithm import MazeSearch
-from data_structures import BestFirstStorage, BreadthFirstStorage, DepthFirstStorage
+from datastructures import BestFirstStorage, BreadthFirstStorage, DepthFirstStorage
 from utils import RandomMaze as Maze
 
 ns = [5,10, 20, 30, 40]

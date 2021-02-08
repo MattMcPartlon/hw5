@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from algorithm import MazeSearch
-from data_structures import BestFirstStorage, BreadthFirstStorage, DepthFirstStorage
+from datastructures import BestFirstStorage, BreadthFirstStorage, DepthFirstStorage
 from utils import RandomMaze as Maze
 
 """

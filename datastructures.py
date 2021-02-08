@@ -13,8 +13,8 @@ class PositionStorage(ABC):
     Concrete instantiations of this class must implement
     three methods:
 
-    1) _add_position(position)
-    2) _get_next_position()
+    1) add_position(position)
+    2) get_next_position()
     3) clear()
     4) update(maze : np.ndarray)
     5) __len__()
@@ -41,7 +41,6 @@ class PositionStorage(ABC):
 
         Gets the next position to explore, and removes it from the
         datastructure
-
         :return: The next position to explore
         """
         pass
@@ -57,8 +56,6 @@ class PositionStorage(ABC):
     def update(self, maze: Maze) -> None:
         """
         update any state information that is maze-dependent
-        :param maze:
-        :return:
         """
         pass
 
@@ -86,15 +83,14 @@ class DepthFirstStorage(PositionStorage):
     def __init__(self):
         # TODO
         super().__init__("depth first")
-        self.discovered = []
         pass
 
     def add_position(self, pos: Tuple[int, int]):
         """
         Adds the position pos to the datastructure
-        :param pos: The position to add
+
+        Running Time : O(1)
         """
-        self.discovered.append(pos)
         # TODO
         pass
 
@@ -104,9 +100,8 @@ class DepthFirstStorage(PositionStorage):
         Gets the most recently added position, and removes
         it from the datastructure
 
-        :return: The next position to explore
+        Running Time : O(1)
         """
-        return self.discovered.pop()
         # TODO
         pass
 
@@ -115,14 +110,10 @@ class DepthFirstStorage(PositionStorage):
         resetting any state information
         """
         # TODO
-        self.discovered = []
         pass
 
     def update(self, maze: Maze):
-        """
-        update any state information that is maze-dependent
-        :param maze:
-        :return:
+        """update any state information that is maze-dependent
         """
         # TODO
         pass
@@ -131,9 +122,9 @@ class DepthFirstStorage(PositionStorage):
         """The number of positions currently held by the datastructure
         """
         # TODO
-        return len(self.discovered)
         pass
 
+from collections import deque
 
 class BreadthFirstStorage(PositionStorage):
     """ Datastructure for storing maze positions
@@ -155,7 +146,8 @@ class BreadthFirstStorage(PositionStorage):
     def add_position(self, pos: Tuple[int, int]):
         """
         Adds the position pos to the datastructure
-        :param pos: The position to add
+
+        Running Time : O(1)
         """
         # TODO
         pass
@@ -166,7 +158,7 @@ class BreadthFirstStorage(PositionStorage):
         Gets the chronologically oldest position and removes
          it from the datastructure
 
-        :return: The next position to explore
+        Running Time : O(1)
         """
         # TODO
         pass
@@ -193,6 +185,7 @@ class BreadthFirstStorage(PositionStorage):
         # TODO
         pass
 
+import heapq
 
 class BestFirstStorage(PositionStorage):
     """ Datastructure for storing maze positions
@@ -203,13 +196,16 @@ class BestFirstStorage(PositionStorage):
 
     def __init__(self):
         super().__init__("best first")
-        # TODO
+        self.goal_position = None
+        #TODO
         pass
 
     def add_position(self, pos: Tuple[int, int]):
         """
         Adds the position pos to the datastructure
-        :param pos: The position to add
+
+        Running Time : O(log(k)) where k is the current
+        number of elements in this datastructure.
         """
         # TODO
         pass
@@ -217,10 +213,13 @@ class BestFirstStorage(PositionStorage):
     def get_next_position(self) -> Tuple[int, int]:
         """Gets the next position to explore
 
-        Gets the position closest to the end of the maze
+        Returns the position closest to the end of the maze
         and removes it from the datastructure
+        closest is measured as |i-i*|+|j-j*|
+        where (i,j) is some position and i*,j* is the goal position.
 
-        :return: The next position to explore
+        Running Time : O(log(k)) where k is the current
+        number of elements in this datastructure.
         """
         # TODO
         pass
@@ -238,8 +237,7 @@ class BestFirstStorage(PositionStorage):
         :param maze:
         :return:
         """
-        # TODO
-        pass
+        self.goal_position = maze.goal_position()
 
     def __len__(self):
         """The number of positions currently held by the datastructure
