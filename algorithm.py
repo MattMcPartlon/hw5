@@ -4,6 +4,10 @@ from typing import Iterable, Tuple, List
 from datastructures import PositionStorage
 from utils import RandomMaze as Maze
 
+"""
+Please list collaborators below (if appropriate)
+
+"""
 
 class MazeSearch:
 
